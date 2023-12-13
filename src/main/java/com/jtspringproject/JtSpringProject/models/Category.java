@@ -1,34 +1,53 @@
 package com.jtspringproject.JtSpringProject.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-@Entity(name="CATEGORY")
+/**
+ * Клас сутності, яка представляє категорію товару в системі.
+ */
+@Entity(name = "CATEGORY")
 public class Category {
-	@Id
-	@Column(name = "category_id")
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
-	
-	private String name;
-	
-	public int getId() {
-		return id;
-	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    @Id
+    @Column(name = "category_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
-	public String getName() {
-		return name;
-	}
+    private String name;
 
-	public void setName(String name) {
-		this.name = name;
-	}
-	
+    /**
+     * Отримує ідентифікатор категорії.
+     *
+     * @return Ідентифікатор категорії.
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Встановлює ідентифікатор категорії.
+     *
+     * @param id Ідентифікатор категорії.
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
+     * Отримує назву категорії.
+     *
+     * @return Назва категорії.
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Встановлює назву категорії.
+     *
+     * @param name Назва категорії.
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 }

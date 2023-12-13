@@ -1,9 +1,5 @@
 package com.jtspringproject.JtSpringProject;
- 
-import java.util.Properties;
- 
-import javax.sql.DataSource;
- 
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,34 +7,45 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
- 
+
+import javax.sql.DataSource;
+import java.util.Properties;
+
+/**
+ * Конфігураційний клас для налаштування Hibernate.
+ */
 @Configuration
 @EnableTransactionManagement
 public class HibernateConfiguration {
     @Value("${db.driver}")
     private String DRIVER;
- 
+
     @Value("${db.password}")
     private String PASSWORD;
- 
+
     @Value("${db.url}")
     private String URL;
- 
+
     @Value("${db.username}")
     private String USERNAME;
- 
+
     @Value("${hibernate.dialect}")
     private String DIALECT;
- 
+
     @Value("${hibernate.show_sql}")
     private String SHOW_SQL;
- 
+
     @Value("${hibernate.hbm2ddl.auto}")
     private String HBM2DDL_AUTO;
- 
+
     @Value("${entitymanager.packagesToScan}")
     private String PACKAGES_TO_SCAN;
- 
+
+    /**
+     * Налаштовує джерело даних (DataSource) для Hibernate.
+     *
+     * @return Об'єкт DataSource.
+     */
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -48,7 +55,12 @@ public class HibernateConfiguration {
         dataSource.setPassword(PASSWORD);
         return dataSource;
     }
- 
+
+    /**
+     * Налаштовує фабрику сесій (SessionFactory) для Hibernate.
+     *
+     * @return Об'єкт LocalSessionFactoryBean.
+     */
     @Bean
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
@@ -59,14 +71,19 @@ public class HibernateConfiguration {
         hibernateProperties.put("hibernate.show_sql", SHOW_SQL);
         hibernateProperties.put("hibernate.hbm2ddl.auto", HBM2DDL_AUTO);
         sessionFactory.setHibernateProperties(hibernateProperties);
- 
+
         return sessionFactory;
     }
- 
+
+    /**
+     * Налаштовує менеджер транзакцій (TransactionManager) для Hibernate.
+     *
+     * @return Об'єкт HibernateTransactionManager.
+     */
     @Bean
     public HibernateTransactionManager transactionManager() {
         HibernateTransactionManager transactionManager = new HibernateTransactionManager();
         transactionManager.setSessionFactory(sessionFactory().getObject());
         return transactionManager;
-    }   
+    }
 }

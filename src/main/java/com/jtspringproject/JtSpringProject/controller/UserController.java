@@ -1,33 +1,30 @@
 package com.jtspringproject.JtSpringProject.controller;
 
-import com.jtspringproject.JtSpringProject.models.Cart;
-import com.jtspringproject.JtSpringProject.models.Category;
 import com.jtspringproject.JtSpringProject.models.Product;
 import com.jtspringproject.JtSpringProject.models.User;
-
-import java.io.Console;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
-
-import com.jtspringproject.JtSpringProject.services.*;
+import com.jtspringproject.JtSpringProject.services.cartService;
+import com.jtspringproject.JtSpringProject.services.categoryService;
+import com.jtspringproject.JtSpringProject.services.productService;
+import com.jtspringproject.JtSpringProject.services.userService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.jtspringproject.JtSpringProject.services.cartService;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 
+/**
+ * Клас-контролер для користувацького функціоналу.
+ */
 @Controller
 public class UserController {
 
@@ -43,23 +40,47 @@ public class UserController {
     @Autowired
     private cartService cartService;
 
+    /**
+     * Відображає форму реєстрації користувача.
+     *
+     * @return Сторінка реєстрації користувача.
+     */
     @GetMapping("/register")
     public String registerUser() {
         return "register";
     }
 
+    /**
+     * Обробник GET-запиту для відображення сторінки покупки товарів.
+     *
+     * @return Сторінка покупки товарів.
+     */
     @GetMapping("/buy")
     public String buy() {
         return "buy";
     }
 
-
+    /**
+     * Обробник GET-запиту для відображення форми входу користувача.
+     *
+     * @param model Модель, яка містить атрибути для представлення.
+     * @return Сторінка входу користувача.
+     */
     @GetMapping("/")
-    public String userlogin(Model model) {
+    public String userLogin(Model model) {
 
         return "userLogin";
     }
 
+    /**
+     * Обробник GET-запиту для відображення сторінки замовлення товарів.
+     *
+     * @param username Ім'я користувача, передане через параметр запиту.
+     * @param pass     Пароль користувача, переданий через параметр запиту.
+     * @param model    Модель, яка містить атрибути для представлення.
+     * @param res      Об'єкт HttpServletResponse для додавання cookie.
+     * @return ModelAndView з переглядом або повертається до сторінки входу в разі невдалої аутентифікації.
+     */
     @RequestMapping(value = "userloginvalidate", method = RequestMethod.POST)
     public ModelAndView userlogin(@RequestParam("username") String username, @RequestParam("password") String pass, Model model, HttpServletResponse res) {
 
@@ -67,7 +88,7 @@ public class UserController {
         User u = this.userService.checkLogin(username, pass);
         System.out.println(u.getUsername());
         u.setUpdateDate(new Date());
-        //write query for updating db
+        // ToDo: write query for updating db...
 
         if (username.equals(u.getUsername())) {
 
@@ -91,7 +112,12 @@ public class UserController {
 
     }
 
-    //change and add update method
+    /**
+     * Обробник GET-запиту для відображення сторінки профілю користувача.
+     *
+     * @param model Модель, яка містить атрибути для представлення.
+     * @return Сторінка профілю користувача.
+     */
     @GetMapping("profileDisplay")
     public String profileDisplay(Model model) {
         try {
@@ -104,10 +130,18 @@ public class UserController {
         } catch (Exception e) {
             System.out.println("Exception:" + e);
         }
-        System.out.println("Hello");
         return "updateProfile";
     }
 
+    /**
+     * Обробник POST-запиту для оновлення профілю користувача.
+     *
+     * @param userid   Ідентифікатор користувача, переданий через параметр запиту.
+     * @param username Ім'я користувача, передане через параметр запиту.
+     * @param email    Електронна адреса користувача, передана через параметр запиту.
+     * @param password Пароль користувача, переданий через параметр запиту.
+     * @return Редірект на головну сторінку після оновлення профілю.
+     */
     @RequestMapping(value = "updateuser", method = RequestMethod.POST)
     public String updateUserProfile(@RequestParam("userid") int userid, @RequestParam("username") String username, @RequestParam("email") String email, @RequestParam("password") String password) {
         try {
@@ -125,9 +159,14 @@ public class UserController {
         } catch (Exception e) {
             System.out.println("Exception:" + e);
         }
-        return "cartproduct";
+        return "redirect:/";
     }
 
+    /**
+     * Обробник GET-запиту для відображення списку продуктів.
+     *
+     * @return ModelAndView з переглядом та інформацією про продукти.
+     */
     @GetMapping("/user/products")
     public ModelAndView getproduct() {
 
@@ -144,6 +183,12 @@ public class UserController {
         return mView;
     }
 
+    /**
+     * Обробник POST-запиту для реєстрації нового користувача.
+     *
+     * @param user Об'єкт користувача, який передається через параметр запиту.
+     * @return ModelAndView з переглядом для сторінки входу користувача або сторінки реєстрації в разі помилки.
+     */
     @RequestMapping(value = "newuserregister", method = RequestMethod.POST)
     public ModelAndView newUseRegister(@ModelAttribute User user) {
         // Check if username already exists in database
@@ -165,11 +210,16 @@ public class UserController {
         }
     }
 
-    //for Learning purpose of model
+    /**
+     * Обробник GET-запиту для відображення тестової сторінки з моделлю.
+     *
+     * @param model Модель для передачі даних до перегляду.
+     * @return Cторінка з тестовою інформацією.
+     */
     @GetMapping("/test")
     public String Test(Model model) {
         System.out.println("test page");
-        model.addAttribute("author", "jay gajera");
+        model.addAttribute("author", "Brigade 33");
         model.addAttribute("id", 40);
 
         List<String> friends = new ArrayList<String>();
@@ -180,36 +230,60 @@ public class UserController {
         return "test";
     }
 
-    // for learning purpose of model and view ( how data is pass to view)
-
+    /**
+     * Обробник GET-запиту для відображення тестової сторінки з об'єктом ModelAndView.
+     *
+     * @return Об'єкт ModelAndView з переглядом та інформацією про автора.
+     */
     @GetMapping("/test2")
     public ModelAndView Test2() {
         System.out.println("test page");
-        //create modelandview object
         ModelAndView mv = new ModelAndView();
-        mv.addObject("name", "jay gajera 17");
+        mv.addObject("name", "Brigade 33");
         mv.addObject("id", 40);
         mv.setViewName("test2");
 
-        List<Integer> list = new ArrayList<Integer>();
+        List<Integer> list = new ArrayList<>();
         list.add(10);
         list.add(25);
         mv.addObject("marks", list);
         return mv;
-
-
     }
 
+    /**
+     * Обробник GET-запиту для відображення сторінки з деталями кошика.
+     *
+     * @return Cторінка з деталями кошика.
+     */
     @GetMapping("carts")
     public String getCartDetail() {
         return "cartproduct";
     }
 
+    /**
+     * Обробник GET-запиту для виходу користувача.
+     *
+     * @return Редірект на головну сторінку після виходу ("redirect:/").
+     */
     @RequestMapping("user/logout")
     public String returnIndex() {
         return "redirect:/";
     }
 
+    /**
+     * Обробник POST-запиту для додавання товару до кошика.
+     *
+     * @param id           Ідентифікатор товару.
+     * @param customerId   Ідентифікатор користувача.
+     * @param categoryId   Ідентифікатор категорії товару.
+     * @param name         Назва товару.
+     * @param price        Ціна товару.
+     * @param weight       Вага товару.
+     * @param quantity     Кількість товару.
+     * @param description  Опис товару.
+     * @param productImage Шлях до зображення товару.
+     * @return Сторінка з деталями кошика.
+     */
     @RequestMapping(value = "user/products/addtocart", method = RequestMethod.POST)
     public String addProduct(@RequestParam("id") int id,
                              @RequestParam("customerid") int customerId,
@@ -220,16 +294,6 @@ public class UserController {
                              @RequestParam("quantity") int quantity,
                              @RequestParam("description") String description,
                              @RequestParam("productImage") String productImage) {
-        System.out.println("id: " + id);
-        System.out.println("customerid: " + customerId);
-        System.out.println("categoryid: " + categoryId);
-        System.out.println("name: " + name);
-        System.out.println("price: " + price);
-        System.out.println("weight: " + weight);
-        System.out.println("quantity: " + quantity);
-        System.out.println("description: " + description);
-        System.out.println("productImage: " + productImage);
-
         Product product = new Product();
         product.setId(id);
         product.setName(name);
@@ -244,6 +308,11 @@ public class UserController {
         return "cartproduct";
     }
 
+    /**
+     * Обробник GET-запиту для відображення сторінки з деталями кошика (зазначене в "return" не відповідає назві методу).
+     *
+     * @return Сторінка з деталями кошика.
+     */
     @RequestMapping("user/products/cartproduct")
     public String returnCartproduct() {
         return "userloginvalidate";

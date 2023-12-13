@@ -1,111 +1,192 @@
 package com.jtspringproject.JtSpringProject.models;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
-@Entity(name="PRODUCT")
+/**
+ * Клас сутності, яка представляє товар у системі.
+ */
+@Entity(name = "PRODUCT")
 public class Product {
-	@Id
-	@Column(name = "product_id")
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "category_id", referencedColumnName = "category_id")
-	private Category category;
+    @Id
+    @Column(name = "product_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "customer_id", referencedColumnName = "id")
-	private User user;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "category_id", referencedColumnName = "category_id")
+    private Category category;
 
-	private String name;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+    private User user;
 
-	private String image;
+    private String name;
+    private String image;
+    private int quantity;
+    private int price;
+    private int weight;
+    private String description;
 
-	private int quantity;
-	
-	private int price;
-	
-	private int weight;
-	
-	private String description;
+    /**
+     * Отримує ідентифікатор товару.
+     *
+     * @return Ідентифікатор товару.
+     */
+    public int getId() {
+        return id;
+    }
 
-	public int getId() {
-		return id;
-	}
+    /**
+     * Встановлює ідентифікатор товару.
+     *
+     * @param id Ідентифікатор товару.
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    /**
+     * Отримує назву товару.
+     *
+     * @return Назва товару.
+     */
+    public String getName() {
+        return name;
+    }
 
-	public String getName() {
-		return name;
-	}
+    /**
+     * Встановлює назву товару.
+     *
+     * @param name Назва товару.
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    /**
+     * Отримує зображення товару.
+     *
+     * @return Шлях до зображення товару.
+     */
+    public String getImage() {
+        return image;
+    }
 
-	public String getImage() {
-		return image;
-	}
+    /**
+     * Встановлює зображення товару.
+     *
+     * @param image Шлях до зображення товару.
+     */
+    public void setImage(String image) {
+        this.image = image;
+    }
 
-	public void setImage(String image) {
-		this.image = image;
-	}
+    /**
+     * Отримує категорію товару.
+     *
+     * @return Об'єкт Category, який представляє категорію товару.
+     */
+    public Category getCategory() {
+        return category;
+    }
 
-	public Category getCategory() {
-		return category;
-	}
+    /**
+     * Встановлює категорію товару.
+     *
+     * @param category Об'єкт Category, який представляє категорію товару.
+     */
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
-	public User getUser() {
-		return user;
-	}
+    /**
+     * Отримує користувача, який додав товар.
+     *
+     * @return Об'єкт User, який представляє користувача.
+     */
+    public User getUser() {
+        return user;
+    }
 
-	public void setCategory(Category category) {
-		this.category = category;
-	}
+    /**
+     * Встановлює користувача, який додав товар.
+     *
+     * @param user Об'єкт User, який представляє користувача.
+     */
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-	public int getQuantity() {
-		return quantity;
-	}
+    /**
+     * Отримує кількість товару на складі.
+     *
+     * @return Кількість товару на складі.
+     */
+    public int getQuantity() {
+        return quantity;
+    }
 
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
+    /**
+     * Встановлює кількість товару на складі.
+     *
+     * @param quantity Кількість товару на складі.
+     */
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 
-	public int getPrice() {
-		return price;
-	}
+    /**
+     * Отримує ціну товару.
+     *
+     * @return Ціна товару.
+     */
+    public int getPrice() {
+        return price;
+    }
 
-	public void setPrice(int price) {
-		this.price = price;
-	}
+    /**
+     * Встановлює ціну товару.
+     *
+     * @param price Ціна товару.
+     */
+    public void setPrice(int price) {
+        this.price = price;
+    }
 
-	public int getWeight() {
-		return weight;
-	}
+    /**
+     * Отримує вагу товару.
+     *
+     * @return Вага товару.
+     */
+    public int getWeight() {
+        return weight;
+    }
 
-	public void setWeight(int weight) {
-		this.weight = weight;
-	}
+    /**
+     * Встановлює вагу товару.
+     *
+     * @param weight Вага товару.
+     */
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    /**
+     * Отримує опис товару.
+     *
+     * @return Опис товару.
+     */
+    public String getDescription() {
+        return description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public void setUser(User customer) {
-		this.user = customer;
-	}
+    /**
+     * Встановлює опис товару.
+     *
+     * @param description Опис товару.
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

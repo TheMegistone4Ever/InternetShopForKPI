@@ -22,9 +22,25 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Конфігураційний клас для налаштування Swagger.
+ */
 @Configuration
 @EnableSwagger2
 public class SwaggerConfiguration {
+
+    /**
+     * Налаштовує обробник мапінгу веб-кінцевих точок для Swagger.
+     *
+     * @param webEndpointsSupplier       Постачальник веб-кінцевих точок.
+     * @param servletEndpointsSupplier   Постачальник сервлет-кінцевих точок.
+     * @param controllerEndpointsSupplier Постачальник контролер-кінцевих точок.
+     * @param endpointMediaTypes          Типи медіа-вмісту для кінцевих точок.
+     * @param corsProperties             Налаштування обмежень CORS.
+     * @param webEndpointProperties      Налаштування веб-кінцевих точок.
+     * @param environment                Об'єкт, який надає доступ до конфігурації оточення.
+     * @return Об'єкт WebMvcEndpointHandlerMapping для Swagger.
+     */
     @Bean
     public WebMvcEndpointHandlerMapping webEndpointServletHandlerMapping(WebEndpointsSupplier webEndpointsSupplier, ServletEndpointsSupplier servletEndpointsSupplier, ControllerEndpointsSupplier controllerEndpointsSupplier, EndpointMediaTypes endpointMediaTypes, CorsEndpointProperties corsProperties, WebEndpointProperties webEndpointProperties, Environment environment) {
         List<ExposableEndpoint<?>> allEndpoints = new ArrayList<>();
@@ -38,10 +54,23 @@ public class SwaggerConfiguration {
         return new WebMvcEndpointHandlerMapping(endpointMapping, webEndpoints, endpointMediaTypes, corsProperties.toCorsConfiguration(), new EndpointLinksResolver(allEndpoints, basePath), shouldRegisterLinksMapping, null);
     }
 
+    /**
+     * Перевіряє, чи слід реєструвати мапінг для лінків.
+     *
+     * @param webEndpointProperties Налаштування веб-кінцевих точок.
+     * @param environment           Об'єкт, який надає доступ до конфігурації оточення.
+     * @param basePath              Базовий шлях веб-кінцевих точок.
+     * @return true, якщо слід реєструвати мапінг для лінків; false, якщо не слід.
+     */
     private boolean shouldRegisterLinksMapping(WebEndpointProperties webEndpointProperties, Environment environment, String basePath) {
         return webEndpointProperties.getDiscovery().isEnabled() && (StringUtils.hasText(basePath) || ManagementPortType.get(environment).equals(ManagementPortType.DIFFERENT));
     }
 
+    /**
+     * Налаштовує Docket для Swagger.
+     *
+     * @return Об'єкт Docket для Swagger.
+     */
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
