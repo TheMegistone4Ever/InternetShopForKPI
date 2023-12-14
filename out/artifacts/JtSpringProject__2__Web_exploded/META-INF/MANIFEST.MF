@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Created-By: IntelliJ IDEA
+Built-By: megis
+Build-Jdk: Oracle OpenJDK version 21.0.1
+Implementation-Title: JtSpringProject
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.jtspringproject
+Main-Class: ${start-class}
+
