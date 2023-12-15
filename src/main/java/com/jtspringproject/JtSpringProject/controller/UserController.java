@@ -309,7 +309,7 @@ public class UserController {
         Product product = productService.getProduct(id);
         Cart cart = new Cart();
         cart.addProduct(product);
-        cart.setCustomer(userService.getById(customerId));
+        cart.setCustomer(userService.getActualUser());
         cartService.addCart(cart);
 
 //        CartProduct cartProduct = new CartProduct();
