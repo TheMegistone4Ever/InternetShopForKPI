@@ -3,6 +3,7 @@
 <%@page import="java.text.*" %>
 <%@page import="java.io.FileOutputStream" %>
 <%@page import=" java.io.ObjectOutputStream" %>
+<%@ page import="org.springframework.web.bind.annotation.RequestParam" %>
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -34,11 +35,8 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
-                <li class="nav-item active"><a class="nav-link" href="user/logout">Logout</a>
-                </li>
-
+                <li class="nav-item active"><a class="nav-link" href="http://localhost:8080/">Logout</a></li>
             </ul>
-
         </div>
     </div>
 </nav>
@@ -55,20 +53,24 @@
             <th scope="col">Price</th>
             <th scope="col">Description</th>
             <th scope="col">Delete</th>
-
         </tr>
         <tbody>
         <c:forEach var="cart" items="${carts }">
         <tr>
-            <td>${cart.id }</td>
-
             <%
                 try {
                     String url = "jdbc:mysql://localhost:3306/ecommjava";
                     Class.forName("com.mysql.cj.jdbc.Driver");
                     Connection con = DriverManager.getConnection(url, "root", "1598");
-                    Statement stmt = con.createStatement();
-                    ResultSet rs = stmt.executeQuery("select * from cart");
+                    String query = "select c.id, p.name, p.price, p.description from cart c\n" +
+                            "left join cart_product cp on c.id = cp.cart_id\n" +
+                            "left join product p on cp.product_id = p.product_id\n" +
+                            "where c.customer_id = ?";
+
+                    PreparedStatement pstmt = con.prepareStatement(query);
+                    pstmt.setInt(1, 9);
+
+                    ResultSet rs = pstmt.executeQuery();
             %>
             <%
                 while (rs.next()) {
@@ -81,11 +83,9 @@
             </td>
             <td>
                 <%= rs.getString(3) %>
-
             </td>
             <td>
                 <%= rs.getString(4) %>
-
             </td>
 
             <td>

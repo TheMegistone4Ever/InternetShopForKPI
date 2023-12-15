@@ -34,7 +34,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
-                <li class="nav-item active"><a class="nav-link" href="userloginvalidate">User Home</a>
+                <li class="nav-item active"><a class="nav-link" href="http://localhost:8080/profileDisplay">User Home</a>
                 <li class="nav-item active"><a class="nav-link" href="logout">Logout</a>
                 </li>
 
@@ -63,8 +63,6 @@
         <tbody>
         <c:forEach var="product" items="${products}">
             <tr>
-
-
                 <td>
                         ${product.id}
                 </td>
@@ -73,7 +71,6 @@
                 </td>
                 <td>
                         ${product.category.name}
-
                 </td>
 
                 <td><img src="${product.image}"

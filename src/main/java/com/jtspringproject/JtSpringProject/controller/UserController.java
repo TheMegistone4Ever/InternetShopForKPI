@@ -1,11 +1,10 @@
 package com.jtspringproject.JtSpringProject.controller;
 
+import com.jtspringproject.JtSpringProject.models.Cart;
+import com.jtspringproject.JtSpringProject.models.CartProduct;
 import com.jtspringproject.JtSpringProject.models.Product;
 import com.jtspringproject.JtSpringProject.models.User;
-import com.jtspringproject.JtSpringProject.services.cartService;
-import com.jtspringproject.JtSpringProject.services.categoryService;
-import com.jtspringproject.JtSpringProject.services.productService;
-import com.jtspringproject.JtSpringProject.services.userService;
+import com.jtspringproject.JtSpringProject.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,6 +39,9 @@ public class UserController {
     @Autowired
     private cartService cartService;
 
+    @Autowired
+    cartProductService cartProductService;
+
     /**
      * Відображає форму реєстрації користувача.
      *
@@ -68,7 +70,6 @@ public class UserController {
      */
     @GetMapping("/")
     public String userLogin(Model model) {
-
         return "userLogin";
     }
 
@@ -83,7 +84,6 @@ public class UserController {
      */
     @RequestMapping(value = "userloginvalidate", method = RequestMethod.POST)
     public ModelAndView userlogin(@RequestParam("username") String username, @RequestParam("password") String pass, Model model, HttpServletResponse res) {
-
         System.out.println(pass);
         User u = this.userService.checkLogin(username, pass);
         System.out.println(u.getUsername());
@@ -286,26 +286,46 @@ public class UserController {
      */
     @RequestMapping(value = "user/products/addtocart", method = RequestMethod.POST)
     public String addProduct(@RequestParam("id") int id,
-                             @RequestParam("customerid") int customerId,
-                             @RequestParam("categoryid") int categoryId,
-                             @RequestParam("name") String name,
-                             @RequestParam("price") int price,
-                             @RequestParam("weight") int weight,
-                             @RequestParam("quantity") int quantity,
-                             @RequestParam("description") String description,
-                             @RequestParam("productImage") String productImage) {
-        Product product = new Product();
-        product.setId(id);
-        product.setName(name);
-        product.setCategory(categoryService.getCategory(categoryId));
-        product.setDescription(description);
-        product.setPrice(price);
-        product.setImage(productImage);
-        product.setWeight(weight);
-        product.setQuantity(quantity);
-        product.setUser(userService.getById(customerId));
-        productService.addProduct(product);
-        return "cartproduct";
+                             @RequestParam("customerid") int customerId
+//                             @RequestParam("categoryid") int categoryId,
+//                             @RequestParam("name") String name,
+//                             @RequestParam("price") int price,
+//                             @RequestParam("weight") int weight,
+//                             @RequestParam("quantity") int quantity,
+//                             @RequestParam("description") String description,
+//                             @RequestParam("productImage") String productImage
+    ) {
+//        Product product = new Product();
+//        product.setId(id);
+//        product.setName(name);
+//        product.setCategory(categoryService.getCategory(categoryId));
+//        product.setDescription(description);
+//        product.setPrice(price);
+//        product.setImage(productImage);
+//        product.setWeight(weight);
+//        product.setQuantity(quantity);
+//        product.setUser(userService.getById(customerId));
+//        productService.addProduct(product);
+
+        Product product = productService.getProduct(id);
+        Cart cart = new Cart();
+        cart.addProduct(product);
+        cart.setCustomer(userService.getById(customerId));
+        cartService.addCart(cart);
+
+//        CartProduct cartProduct = new CartProduct();
+//        cartProduct.setCart(cart);
+//        cartProduct.setProduct(product);
+//        cartProductService.addCartProduct(cartProduct);
+
+        return "redirect:/carts";
+    }
+
+    @GetMapping("cart/delete")
+    public String removeCartDb(@RequestParam("id") int id) {
+        Cart cart = cartService.getCartById(id);
+        cartService.deleteCart(cart);
+        return "redirect:/carts";
     }
 
     /**
@@ -313,7 +333,7 @@ public class UserController {
      *
      * @return Сторінка з деталями кошика.
      */
-    @RequestMapping("user/products/cartproduct")
+    @GetMapping("user/products/cartproduct")
     public String returnCartproduct() {
         return "userloginvalidate";
     }

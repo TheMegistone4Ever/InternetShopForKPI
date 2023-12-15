@@ -1,15 +1,17 @@
 # SQL configs
 SET SQL_MODE ='IGNORE_SPACE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
+DROP SCHEMA IF EXISTS ecommjava;
+
 # create database and use it
 CREATE DATABASE IF NOT EXISTS ecommjava;
 USE ecommjava;
 
 SET FOREIGN_KEY_CHECKS=0;
+
 drop table if exists CATEGORY;
 drop table if exists PRODUCT;
 drop table if exists CUSTOMER;
-SET FOREIGN_KEY_CHECKS=1;
 
 # create the category table
 CREATE TABLE IF NOT EXISTS CATEGORY(
@@ -39,11 +41,6 @@ username varchar(255) null,
 UNIQUE (username)
 );
 
-# insert default customers
-INSERT INTO CUSTOMER(address, email, password, role, username) VALUES
-                                                                   ('123, Albany Street', 'admin@nyan.cat', '123', 'ROLE_ADMIN', 'admin'),
-                                                                   ('765, 5th Avenue', 'lisa@gmail.com', '765', 'ROLE_NORMAL', 'lisa');
-
 # create the product table
 CREATE TABLE IF NOT EXISTS PRODUCT(
 product_id  int auto_increment primary key,
@@ -64,6 +61,21 @@ INSERT INTO PRODUCT(description, image, name, price, quantity, weight, category_
                                                                                         ('Fresh and juicy', 'https://freepngimg.com/save/9557-apple-fruit-transparent/744x744', 'Apple', 3, 40, 76, 1),
                                                                                         ('Woops! There goes the eggs...', 'https://www.nicepng.com/png/full/813-8132637_poiata-bunicii-cracked-egg.png', 'Cracked Eggs', 1, 90, 43, 9);
 
+create table IF NOT EXISTS cart
+(
+    id int auto_increment primary key,
+    customer_id int not null,
+    foreign key (customer_id) references customer(id)
+);
+
+create table IF NOT EXISTS cart_product
+(
+    id int auto_increment primary key,
+    cart_id    int not null,
+    product_id int not null,
+    foreign key (cart_id) references cart(id),
+    foreign key (product_id) references product(product_id)
+);
 
 # create indexes
 CREATE INDEX FK7u438kvwr308xcwr4wbx36uiw
@@ -71,3 +83,5 @@ CREATE INDEX FK7u438kvwr308xcwr4wbx36uiw
 
 CREATE INDEX FKt23apo8r9s2hse1dkt95ig0w5
     ON PRODUCT (customer_id);
+
+SET FOREIGN_KEY_CHECKS=1;

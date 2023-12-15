@@ -47,6 +47,11 @@ public class cartDao {
         return this.sessionFactory.getCurrentSession().createQuery("from CART").list();
     }
 
+    @Transactional
+    public Cart getCartById(int id) {
+        return (Cart) this.sessionFactory.getCurrentSession().createQuery("from CART where id = :id").setParameter("id", id).uniqueResult();
+    }
+
     /**
      * Оновлює інформацію про об'єкт Cart у базі даних.
      *

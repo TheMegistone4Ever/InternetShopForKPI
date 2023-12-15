@@ -4,6 +4,7 @@ import com.jtspringproject.JtSpringProject.dao.cartDao;
 import com.jtspringproject.JtSpringProject.models.Cart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -32,6 +33,10 @@ public class cartService {
      */
     public List<Cart> getCarts() {
         return this.cartDao.getCarts();
+    }
+
+    public Cart getCartById(int id) {
+        return cartDao.getCartById(id);
     }
 
     /**
