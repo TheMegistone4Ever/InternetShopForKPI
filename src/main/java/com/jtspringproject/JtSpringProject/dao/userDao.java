@@ -60,7 +60,7 @@ public class userDao {
     @Transactional
     public User getActualUser() {
         Session session = this.sessionFactory.getCurrentSession();
-        String hql = "FROM CUSTOMER c WHERE c.updateDate = (SELECT MAX(c2.updateDate) FROM CUSTOMER c2)";
+        String hql = "FROM CUSTOMER c WHERE c.role = 'ROLE_NORMAL'";
         Query<User> query = session.createQuery(hql, User.class);
 
         return query.uniqueResult();

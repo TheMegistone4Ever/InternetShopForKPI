@@ -55,7 +55,7 @@
             <th scope="col">Delete</th>
         </tr>
         <tbody>
-        <c:forEach var="cart" items="${carts }">
+        <c:forEach var="cart" items="${carts}">
         <tr>
             <%
                 try {
@@ -63,12 +63,12 @@
                     Class.forName("com.mysql.cj.jdbc.Driver");
                     Connection con = DriverManager.getConnection(url, "root", "1598");
                     String query = "select c.id, p.name, p.price, p.description from cart c\n" +
-                            "left join cart_product cp on c.id = cp.cart_id\n" +
-                            "left join product p on cp.product_id = p.product_id\n" +
-                            "where c.customer_id = ?";
+                            "                            left join cart_product cp on c.id = cp.cart_id\n" +
+                            "                            left join product p on cp.product_id = p.product_id\n" +
+                            "                            where c.customer_id = ?";
 
                     PreparedStatement pstmt = con.prepareStatement(query);
-                    pstmt.setInt(1, 9);
+                    pstmt.setInt(1, 8);
 
                     ResultSet rs = pstmt.executeQuery();
             %>

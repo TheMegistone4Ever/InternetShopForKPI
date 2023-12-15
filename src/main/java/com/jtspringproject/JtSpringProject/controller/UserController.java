@@ -88,7 +88,6 @@ public class UserController {
         User u = this.userService.checkLogin(username, pass);
         System.out.println(u.getUsername());
         u.setUpdateDate(new Date());
-        // ToDo: write query for updating db...
 
         if (username.equals(u.getUsername())) {
 
