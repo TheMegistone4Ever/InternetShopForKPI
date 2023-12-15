@@ -74,7 +74,7 @@
                 </td>
 
                 <td><img src="${product.image}"
-                         height="100px" width="100px"></td>
+                         height="100px" width="100px" alt="Product Image"></td>
                 <td>
                         ${product.quantity }
                 </td>

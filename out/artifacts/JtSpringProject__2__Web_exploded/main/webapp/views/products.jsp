@@ -50,7 +50,7 @@
 <div class="container-fluid">
 
     <a style="margin: 20px 0" class="btn btn-primary"
-       href="/admin/products/add">Add Product</a><br>
+       href="<c:url value="<c:url value="<c:url value="<c:url value="/admin/products/add"/>"/>"/>"/>">Add Product</a><br>
     <table class="table">
 
         <tr>

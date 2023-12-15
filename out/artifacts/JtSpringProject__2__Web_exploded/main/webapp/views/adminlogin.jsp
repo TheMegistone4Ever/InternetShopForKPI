@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -18,7 +19,7 @@
 
     <div class="jumbotron border col-sm-5 mx-auto">
         <h2 class="text-center">Admin Login</h2><br>
-        <form action="/admin/dashboard" method="post">
+        <form action="<c:url value="<c:url value="/admin/dashboard"/>"/>" method="post">
             <div class="form-group">
                 <label for="username">Username :</label>
                 <input type="text" name="username" id="username" placeholder="Admin username" required

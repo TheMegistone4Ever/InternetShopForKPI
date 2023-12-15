@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!doctype html>
-<%@page import="java.sql.*" %>
+
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -36,7 +36,7 @@
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
                 <li class="nav-item active"><a class="nav-link"
-                                               href="/dashboard">Home Page</a></li>
+                                               href="<c:url value="<c:url value="/dashboard"/>"/>">Home Page</a></li>
                 <li class="nav-item active"><a class="nav-link"
                                                href="admin/logout">Logout</a></li>
             </ul>
@@ -106,8 +106,8 @@
                            accept="image/jpeg, image/png" id="productImage" onchange="loadfile(event)"/>
                     <label class="custom-file-label border border-success" for="productImage">Choose file</label>
                     <script type="text/javascript">
-                        var loadFile = function (event) {
-                            var image = document.getElementById('imgPreview');
+                        const loadFile = function (event) {
+                            const image = document.getElementById('imgPreview');
                             image.src = URL.createObjectURL(event.target.files[0]);
                         };
                     </script>
@@ -119,10 +119,11 @@
                 <input type="hidden" name="imgName">
                 <input type="submit" value="Update Details" class="btn btn-primary">
             </div>
-    </div>
-    </form>
+        </form>
     </div>
 </c:forEach>
+</body>
+</html>
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"

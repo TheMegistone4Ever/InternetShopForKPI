@@ -10,9 +10,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.jtspringproject</groupId>
-	<artifactId>JtSpringProject</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>JtSpringProject</name>
+	<artifactId>PetProject-InternetShop</artifactId>
+	<version>0.0.1-RELEASE</version>
+	<name>PetProject-InternetShop</name>
 	<description>Spring project for Java Technology</description>
 	<properties>
 		<java.version>11</java.version>

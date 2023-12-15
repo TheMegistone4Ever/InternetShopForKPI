@@ -6,11 +6,6 @@
 <body>
 <h1>test page</h1>
 
-<%
-    //String name=(String)request.getAttribute("name");
-    //Integer id= (Integer)request.getAttribute("id");
-
-%>
 <h1>
     Name: ${name}, id= ${id}
 </h1>

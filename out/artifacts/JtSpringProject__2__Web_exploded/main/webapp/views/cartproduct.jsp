@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.sql.*" %>
 <%@page import="java.util.*" %>
 <%@page import="java.text.*" %>
@@ -46,7 +47,7 @@
 <div class="container-fluid">
 
     <a style="margin: 20px 0" class="btn btn-primary"
-       href="/user/products">Add Product</a><br>
+       href="<c:url value="<c:url value="/user/products"/>"/>">Add Product</a><br>
     <table class="table">
 
         <tr>

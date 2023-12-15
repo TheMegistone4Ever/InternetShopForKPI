@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -54,7 +55,7 @@
                     <h4 class="card-title">Categories</h4>
                     <p>---------------------------------------------</p>
                     <p class="card-text">Manage the categories section here.</p>
-                    <a href="/admin/categories" class="card-link btn btn-primary">Manage</a>
+                    <a href="<c:url value="<c:url value="/admin/categories"/>"/>" class="card-link btn btn-primary">Manage</a>
 
                 </div>
             </div>
@@ -65,7 +66,7 @@
                     <h4 class="card-title">Products</h4>
                     <p>---------------------------------------------</p>
                     <p class="card-text">Manage all the products here.</p>
-                    <a href="/admin/products" class="card-link btn btn-primary">Manage</a>
+                    <a href="<c:url value="<c:url value="/admin/products"/>"/>" class="card-link btn btn-primary">Manage</a>
 
                 </div>
             </div>
@@ -76,7 +77,7 @@
                     <h4 class="card-title">Customers</h4>
                     <p>---------------------------------------------</p>
                     <p class="card-text">Manage all the customer here.</p>
-                    <a href="/admin/customers" class="card-link btn btn-primary">Manage</a>
+                    <a href="<c:url value="<c:url value="/admin/customers"/>"/>" class="card-link btn btn-primary">Manage</a>
 
                 </div>
             </div>

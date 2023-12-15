@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -43,7 +44,7 @@
                 <textarea class="form-control form-control-lg" rows="3" placeholder="Enter Your Address"
                           name="address"></textarea>
             </div>
-            <span style="margin-top: 10px">Already have an account <a class="linkControl" href="/">Login here</a></span>
+            <span style="margin-top: 10px">Already have an account <a class="linkControl" href="<c:url value="<c:url value="/"/>"/>">Login here</a></span>
             <br><br>
             <input type="submit" value="Register" class="btn btn-primary btn-block"><br>
             <br>

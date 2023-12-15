@@ -6,7 +6,7 @@
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
-          <factory-entry name="JtSpringProject" value="a33f2f0c-b175-41c3-bbba-1a1b8c910f52" />
+          <factory-entry name="JtSpringProject" value="523d33c4-ab3d-4f13-b409-b9130736414d" />
         </datasource-mapping>
         <naming-strategy-map />
       </configuration>

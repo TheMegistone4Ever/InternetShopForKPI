@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!doctype html>
-<%@page import="java.sql.*" %>
+
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -106,7 +106,7 @@
                            accept="image/jpeg, image/png" id="productImage" onchange="loadfile(event)"/>
                     <label class="custom-file-label border border-success" for="productImage">Choose file</label>
                     <script type="text/javascript">
-                        var loadFile = function (event) {
+                        const loadFile = function (event) {
                             var image = document.getElementById('imgPreview');
                             image.src = URL.createObjectURL(event.target.files[0]);
                         };
@@ -119,9 +119,7 @@
                 <input type="hidden" name="imgName">
                 <input type="submit" value="Update Details" class="btn btn-primary">
             </div>
-    </div>
-    </form>
-    </div>
+        </form></div>
 </c:forEach>
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"

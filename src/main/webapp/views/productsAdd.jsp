@@ -2,7 +2,6 @@
 
 <!doctype html>
 
-<%@page import="java.sql.*" %>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -129,11 +128,10 @@
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
 <script type="text/javascript">
-    var loadFile = function (event) {
-        var image = document.getElementById('imgPreview');
+    const loadFile = function (event) {
+        const image = document.getElementById('imgPreview');
         image.src = URL.createObjectURL(event.target.files[0]);
     };
 </script>
 </body>
-</html>
 </html>

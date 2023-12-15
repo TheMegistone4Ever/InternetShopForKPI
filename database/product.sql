@@ -1,0 +1,10 @@
+INSERT INTO ecommjava.product (product_id, description, image, name, price, quantity, weight, category_id, customer_id) VALUES (23, 'eweew', 'werewr', 'MYKYTA KYSELOV', 100000, 2, 2, 27, 8);
+INSERT INTO ecommjava.product (product_id, description, image, name, price, quantity, weight, category_id, customer_id) VALUES (24, 'asdsdasdaasdsda', 'https://i.pinimg.com/736x/0a/67/4c/0a674c0f20b844b8abacb272b7232f42.jpg', 'MYKYTA KYSELODSADSADV', 100000, 4, 3, 27, 8);
+INSERT INTO ecommjava.product (product_id, description, image, name, price, quantity, weight, category_id, customer_id) VALUES (25, '', '2432', 'Kyselov Mykyta', 100000, 23, 3, 27, 9);
+INSERT INTO ecommjava.product (product_id, description, image, name, price, quantity, weight, category_id, customer_id) VALUES (26, '', '2432', 'Kyselov Mykyta', 100000, 23, 3, 27, 9);
+INSERT INTO ecommjava.product (product_id, description, image, name, price, quantity, weight, category_id, customer_id) VALUES (28, '11', '11', 'MYKYTA', 100000, 11, 11, 27, 8);
+INSERT INTO ecommjava.product (product_id, description, image, name, price, quantity, weight, category_id, customer_id) VALUES (38, 'asdsdasdaasdsda', 'https://i.pinimg.com/736x/0a/67/4c/0a674c0f20b844b8abacb272b7232f42.jpg', 'MYKYTA KYSELODSADSADV', 100000, 4, 3, 27, 8);
+INSERT INTO ecommjava.product (product_id, description, image, name, price, quantity, weight, category_id, customer_id) VALUES (39, '', '2432', 'Kyselov Mykyta', 100000, 23, 3, 27, 9);
+INSERT INTO ecommjava.product (product_id, description, image, name, price, quantity, weight, category_id, customer_id) VALUES (40, 'asdsdasdaasdsda', 'https://i.pinimg.com/736x/0a/67/4c/0a674c0f20b844b8abacb272b7232f42.jpg', 'MYKYTA KYSELODSADSADV', 100000, 4, 3, 27, 8);
+INSERT INTO ecommjava.product (product_id, description, image, name, price, quantity, weight, category_id, customer_id) VALUES (41, 'eweew', 'werewr', 'MYKYTA KYSELOV', 100000, 2, 2, 27, 8);
+INSERT INTO ecommjava.product (product_id, description, image, name, price, quantity, weight, category_id, customer_id) VALUES (42, 'eweew', 'werewr', 'MYKYTA KYSELOV', 100000, 2, 2, 27, 8);

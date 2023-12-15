@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -30,7 +31,7 @@
                 <input type="password" class="form-control form-control-lg" placeholder="Password*" required
                        name="password" id="password">
             </div>
-            <span>Don't have an account <a class="linkControl" href="/register">Register here</a></span> <br><br>
+            <span>Don't have an account <a class="linkControl" href="<c:url value="<c:url value="/register"/>"/>">Register here</a></span> <br><br>
 
             <input type="submit" value="Login" class="btn btn-primary btn-block">
             <br>
@@ -42,7 +43,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto"></ul>
         <ul class="navbar-nav">
-            <li class="nav-item active"><a class="nav-link" href="/t">Logout</a>
+            <li class="nav-item active"><a class="nav-link" href="<c:url value="<c:url value="/t"/>"/>">Logout</a>
             </li>
 
         </ul>
