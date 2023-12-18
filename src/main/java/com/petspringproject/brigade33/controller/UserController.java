@@ -26,19 +26,15 @@ import java.util.List;
 public class UserController {
 
     @Autowired
+    com.petspringproject.brigade33.services.cartProductService cartProductService;
+    @Autowired
     private com.petspringproject.brigade33.services.userService userService;
-
     @Autowired
     private com.petspringproject.brigade33.services.productService productService;
-
     @Autowired
     private com.petspringproject.brigade33.services.categoryService categoryService;
-
     @Autowired
     private com.petspringproject.brigade33.services.cartService cartService;
-
-    @Autowired
-    com.petspringproject.brigade33.services.cartProductService cartProductService;
 
     /**
      * Відображає форму реєстрації користувача.
@@ -81,7 +77,8 @@ public class UserController {
      * @return ModelAndView з переглядом або повертається до сторінки входу в разі невдалої аутентифікації.
      */
     @RequestMapping(value = "userloginvalidate", method = RequestMethod.POST)
-    public ModelAndView userlogin(@RequestParam("username") String username, @RequestParam("password") String pass, Model model, HttpServletResponse res) {
+    public ModelAndView userlogin(@RequestParam("username") String username,
+                                  @RequestParam("password") String pass, Model model, HttpServletResponse res) {
         System.out.println(pass);
         User u = this.userService.checkLogin(username, pass);
         System.out.println(u.getUsername());
@@ -106,7 +103,6 @@ public class UserController {
             mView.addObject("msg", "Please enter correct email and password");
             return mView;
         }
-
     }
 
     /**
@@ -140,12 +136,14 @@ public class UserController {
      * @return Редірект на головну сторінку після оновлення профілю.
      */
     @RequestMapping(value = "updateuser", method = RequestMethod.POST)
-    public String updateUserProfile(@RequestParam("userid") int userid, @RequestParam("username") String username, @RequestParam("email") String email, @RequestParam("password") String password) {
+    public String updateUserProfile(@RequestParam("userid") int userid, @RequestParam("username") String username,
+                                    @RequestParam("email") String email, @RequestParam("password") String password) {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/ecommjava", "root", "1598");
 
-            PreparedStatement pst = con.prepareStatement("UPDATE customer c SET c.username = ?, c.email = ?, c.password = ?, c.address = ?, update_date = now() WHERE c.id = ?");
+            PreparedStatement pst = con.prepareStatement("UPDATE customer c SET c.username = ?, c.email = ?," +
+                    " c.password = ?, c.address = ?, update_date = now() WHERE c.id = ?");
 
             pst.setString(1, username);
             pst.setString(2, email);
@@ -270,20 +268,19 @@ public class UserController {
     /**
      * Обробник POST-запиту для додавання товару до кошика.
      *
-     * @param id           Ідентифікатор товару.
-     * @param customerId   Ідентифікатор користувача.
-//     * @param categoryId   Ідентифікатор категорії товару.
-//     * @param name         Назва товару.
-//     * @param price        Ціна товару.
-//     * @param weight       Вага товару.
-//     * @param quantity     Кількість товару.
-//     * @param description  Опис товару.
-//     * @param productImage Шлях до зображення товару.
+     * @param id         Ідентифікатор товару.
+     * @param customerId Ідентифікатор користувача.
+     *                   //     * @param categoryId   Ідентифікатор категорії товару.
+     *                   //     * @param name         Назва товару.
+     *                   //     * @param price        Ціна товару.
+     *                   //     * @param weight       Вага товару.
+     *                   //     * @param quantity     Кількість товару.
+     *                   //     * @param description  Опис товару.
+     *                   //     * @param productImage Шлях до зображення товару.
      * @return Сторінка з деталями кошика.
      */
     @RequestMapping(value = "user/products/addtocart", method = RequestMethod.POST)
-    public String addProduct(@RequestParam("id") int id,
-                             @RequestParam("customerid") int customerId
+    public String addProduct(@RequestParam("id") int id, @RequestParam("customerid") int customerId
 //                             @RequestParam("categoryid") int categoryId,
 //                             @RequestParam("name") String name,
 //                             @RequestParam("price") int price,
@@ -300,6 +297,12 @@ public class UserController {
         return "redirect:/carts";
     }
 
+    /**
+     * Обробник GET-запиту для видалення товару з кошика.
+     *
+     * @param id Ідентифікатор товару.
+     * @return Редірект на сторінку з деталями кошика.
+     */
     @GetMapping("cart/delete")
     public String removeCartDb(@RequestParam("id") int id) {
         Cart cart = cartService.getCartById(id);
@@ -308,7 +311,7 @@ public class UserController {
     }
 
     /**
-     * Обробник GET-запиту для відображення сторінки з деталями кошика (зазначене в "return" не відповідає назві методу).
+     * Обробник GET-запиту для відображення сторінки з деталями кошика.
      *
      * @return Сторінка з деталями кошика.
      */

@@ -56,7 +56,6 @@ public class AdminController {
             model.addAttribute("username", usernameforclass);
             return "index";
         }
-
     }
 
     /**
@@ -66,7 +65,6 @@ public class AdminController {
      */
     @GetMapping("login")
     public String adminlogin() {
-
         return "adminlogin";
     }
 
@@ -199,7 +197,6 @@ public class AdminController {
             }
         }
         return mView;
-
     }
 
     /**
@@ -228,7 +225,10 @@ public class AdminController {
      * @return Перенаправлення на сторінку адміністраторського розділу з продуктами.
      */
     @RequestMapping(value = "products/add", method = RequestMethod.POST)
-    public String addProduct(@RequestParam("name") String name, @RequestParam("categoryid") int categoryId, @RequestParam("price") int price, @RequestParam("weight") int weight, @RequestParam("quantity") int quantity, @RequestParam("description") String description, @RequestParam("productImage") String productImage) {
+    public String addProduct(@RequestParam("name") String name, @RequestParam("categoryid") int categoryId,
+                             @RequestParam("price") int price, @RequestParam("weight") int weight,
+                             @RequestParam("quantity") int quantity, @RequestParam("description") String description,
+                             @RequestParam("productImage") String productImage) {
         System.out.println(categoryId);
         Category category = this.categoryService.getCategory(categoryId);
         Product product = new Product();
